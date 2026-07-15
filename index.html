@@ -27,14 +27,40 @@
     a { color: #f2efe9; text-decoration: none; }
     a:hover { color: #e63025; }
     ::selection { background: #e63025; color: #fff; }
+    @media (max-width: 1000px) {
+      #bio-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+      #bio-grid > div:first-child { max-width: 480px; }
+      #contact-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+      #gallery-grid { column-count: 2 !important; }
+    }
+    @media (max-width: 640px) {
+      nav[data-nav] { padding: 12px 16px !important; }
+      nav[data-nav] img { height: 42px !important; }
+      #nav-menu { gap: 14px !important; font-size: 11px !important; letter-spacing: 1.5px !important; }
+      #nav-menu a[href="#contato"] { padding: 7px 12px !important; }
+      section { padding-left: 20px !important; padding-right: 20px !important; }
+      section[id="galeria"], section[id="videos"], section[id="bio"], section[id="contato"] { padding-top: 72px !important; padding-bottom: 72px !important; }
+      #hero-content { padding: 0 20px 64px 20px !important; }
+      #hero-name { font-size: clamp(52px, 17vw, 72px) !important; }
+      #hero-signature { height: clamp(90px, 26vw, 130px) !important; top: 30px !important; left: -12px !important; }
+      section h2 { font-size: 30px !important; letter-spacing: 5px !important; }
+      #video-grid { grid-template-columns: 1fr !important; }
+      #lightbox-overlay { padding: 64px 16px !important; }
+      #lightbox-overlay button { font-size: 34px !important; padding: 10px !important; }
+      blockquote p { font-size: 40px !important; }
+      #booking-script { font-size: 48px !important; }
+    }
+    @media (max-width: 560px) {
+      #gallery-grid { column-count: 1 !important; }
+    }
   </style>
 </helmet>
 
-<nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: linear-gradient(rgba(5,5,5,0.92), rgba(5,5,5,0.75) 70%, rgba(5,5,5,0)); ">
+<nav data-nav="true" style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px 48px; background: linear-gradient(rgba(5,5,5,0.92), rgba(5,5,5,0.75) 70%, rgba(5,5,5,0)); ">
   <a href="#inicio" style="display: flex; align-items: center;">
     <img src="assets/logo-gallisa.png" alt="José Gallisa" style="height: 58px; display: block;">
   </a>
-  <div style="display: flex; align-items: center; gap: 36px; font-size: 13px; letter-spacing: 3px; text-transform: uppercase;">
+  <div id="nav-menu" style="display: flex; align-items: center; gap: 36px; font-size: 13px; letter-spacing: 3px; text-transform: uppercase;">
     <a href="#galeria">Gallery</a>
     <a href="#videos">Videos</a>
     <a href="#bio">Bio</a>
@@ -45,10 +71,10 @@
 <section id="inicio" data-screen-label="Hero" style="position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; background: #050505;">
   <video src="assets/background-home.webm" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" poster="assets/hero-poster.png" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top;"></video>
   <div style="position: absolute; inset: 0; background: linear-gradient(rgba(5,5,5,0.35), rgba(5,5,5,0.15) 45%, rgba(5,5,5,0.92) 92%);"></div>
-  <div style="position: relative; padding: 0 48px 96px 48px; max-width: 1100px;">
+  <div id="hero-content" style="position: relative; padding: 0 48px 96px 48px; max-width: 1100px;">
     <div style="position: relative; line-height: 0.9;">
-      <span style="font-family: 'Montserrat', Helvetica, sans-serif; font-weight: 700; font-size: clamp(72px, 12vw, 150px); color: #ffffff; letter-spacing: -2px;">José</span>
-      <img src="assets/gallisa-signature.png" alt="Gallisa" style="height: clamp(120px, 18vw, 230px); position: relative; left: -20px; top: 44px; filter: drop-shadow(0 2px 24px rgba(0,0,0,0.6));">
+      <span id="hero-name" style="font-family: 'Montserrat', Helvetica, sans-serif; font-weight: 700; font-size: clamp(72px, 12vw, 150px); color: #ffffff; letter-spacing: -2px;">José</span>
+      <img id="hero-signature" src="assets/gallisa-signature.png" alt="Gallisa" style="height: clamp(120px, 18vw, 230px); position: relative; left: -20px; top: 44px; filter: drop-shadow(0 2px 24px rgba(0,0,0,0.6));">
     </div>
     <p style="margin: 40px 0 0 0; font-size: 15px; letter-spacing: 6px; text-transform: uppercase; color: #ffffff;">Bass&nbsp;&nbsp;|&nbsp;&nbsp;Opera Singer</p>
     <sc-if value="{{ isDe }}" hint-placeholder-val="{{ true }}">
@@ -66,42 +92,31 @@
 <section id="galeria" data-screen-label="Galeria" style="padding: 120px 48px;">
   <h2 style="margin: 0 0 12px 0; font-family: 'Montserrat', Helvetica, sans-serif; font-weight: 700; font-size: 42px; letter-spacing: 8px; color: #ffffff;">GALLERY</h2>
   <div style="width: 64px; height: 3px; background: #e63025; margin-bottom: 56px;"></div>
-  <div style="column-count: 3; column-gap: 20px; max-width: 1400px;">
-    <img src="assets/gallery/commendatore.jpg" alt="José Gallisa as Commendatore in Don Giovanni" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/oroveso.jpg" alt="José Gallisa as Oroveso in Norma" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/tosca.jpg" alt="José Gallisa in Tosca" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/lew8268.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/aida-sandiego.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/mg3398.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/img8909.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/maometto-bremen.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/mg7547.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/samson-sd.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/e30b0463.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/lew8447.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/op1611.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/farao-sd2008.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/mg1607.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/e30b0312.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/hally.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/img3907.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/nourabad-sd.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/mg6765.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/photo51532910.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/macbeth.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/e30b0315.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/pearlfisher-sd.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/img0400.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/mg8438.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/fiesco.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
-    <img src="assets/gallery/aida-sd.jpg" alt="José Gallisa on stage" style="width: 100%; display: block; margin-bottom: 20px;" loading="lazy">
+  <div id="gallery-grid" style="column-count: 3; column-gap: 20px; max-width: 1400px;">
+    <sc-for list="{{ photos }}" as="photo" hint-placeholder-count="6">
+      <figure style="position: relative; margin: 0 0 20px 0; break-inside: avoid; cursor: pointer;" onClick="{{ photo.open }}">
+        <img src="{{ photo.src }}" alt="{{ photo.cap }}" style="width: 100%; display: block;" loading="lazy">
+        <figcaption style="position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 18px; background: linear-gradient(rgba(5,5,5,0) 55%, rgba(5,5,5,0.85)); opacity: 0; transition: opacity 0.25s;" style-hover="opacity: 1;">
+          <span style="font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #ffffff;">{{ photo.cap }}</span>
+        </figcaption>
+      </figure>
+    </sc-for>
   </div>
+  <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+    <div id="lightbox-overlay" onClick="{{ closeLightbox }}" style="position: fixed; inset: 0; z-index: 100; background: rgba(5,5,5,0.96); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 96px;">
+      {{ lightboxImg }}
+      <p onClick="{{ stopClick }}" style="margin: 20px 0 0 0; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: rgba(242,239,233,0.85);">{{ currentCap }}<span style="color: rgba(242,239,233,0.4);">&nbsp;&nbsp;·&nbsp;&nbsp;{{ currentPos }}</span></p>
+      <button onClick="{{ prevPhoto }}" aria-label="Previous" style="position: fixed; left: 24px; top: 50%; transform: translateY(-50%); background: transparent; border: 0; color: rgba(242,239,233,0.7); font-size: 48px; line-height: 1; cursor: pointer; padding: 16px; font-family: 'Poppins', Helvetica, sans-serif;" style-hover="color: #e63025;">‹</button>
+      <button onClick="{{ nextPhoto }}" aria-label="Next" style="position: fixed; right: 24px; top: 50%; transform: translateY(-50%); background: transparent; border: 0; color: rgba(242,239,233,0.7); font-size: 48px; line-height: 1; cursor: pointer; padding: 16px; font-family: 'Poppins', Helvetica, sans-serif;" style-hover="color: #e63025;">›</button>
+      <button onClick="{{ closeLightbox }}" aria-label="Close" style="position: fixed; top: 20px; right: 24px; background: transparent; border: 0; color: rgba(242,239,233,0.7); font-size: 32px; line-height: 1; cursor: pointer; padding: 12px; font-family: 'Poppins', Helvetica, sans-serif;" style-hover="color: #e63025;">×</button>
+    </div>
+  </sc-if>
 </section>
 
 <section id="videos" data-screen-label="Vídeos" style="padding: 120px 48px; background: #0c0c0c;">
   <h2 style="margin: 0 0 12px 0; font-family: 'Montserrat', Helvetica, sans-serif; font-weight: 700; font-size: 42px; letter-spacing: 8px; color: #ffffff;">VIDEO</h2>
   <div style="width: 64px; height: 3px; background: #e63025; margin-bottom: 56px;"></div>
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 32px; max-width: 1400px;">
+  <div id="video-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr)); gap: 32px; max-width: 1400px;">
     <figure style="margin: 0;">
       <iframe src="https://player.vimeo.com/video/393464156?byline=false&portrait=false&title=false" style="width: 100%; aspect-ratio: 16 / 9; border: 0; display: block; background: #000;" allow="fullscreen" title="König Heinrich - Lohengrin"></iframe>
       <figcaption style="margin-top: 14px; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: rgba(242,239,233,0.75);">König Heinrich — <span style="color: #ffffff; font-weight: 600;">LOHENGRIN</span></figcaption>
@@ -131,7 +146,7 @@
     <button onClick="{{ setPt }}" style="{{ tabPtStyle }}">Português</button>
   </div>
 
-  <div style="display: grid; grid-template-columns: 380px 1fr; gap: 72px; max-width: 1400px; align-items: start;">
+  <div id="bio-grid" style="display: grid; grid-template-columns: 380px 1fr; gap: 72px; max-width: 1400px; align-items: start;">
     <div>
       <img src="assets/bio-portrait.jpg" alt="Portrait of José Gallisa" style="width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 42% 20%; display: block;">
       <p style="margin: 12px 0 48px 0; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: rgba(242,239,233,0.5);">Photo: Gal Opido</p>
@@ -187,9 +202,9 @@
 <section id="contato" data-screen-label="Contato" style="position: relative; padding: 120px 48px 80px 48px; background-image: linear-gradient(rgba(5,5,5,0.45), rgba(5,5,5,0.38)), url('assets/contact-bg.jpg'); background-size: cover; background-position: center 30%;">
   <h2 style="margin: 0 0 12px 0; font-family: 'Montserrat', Helvetica, sans-serif; font-weight: 700; font-size: 42px; letter-spacing: 8px; color: #ffffff;">CONTACT</h2>
   <div style="width: 64px; height: 3px; background: #e63025; margin-bottom: 56px;"></div>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; max-width: 1100px; align-items: start;">
+  <div id="contact-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; max-width: 1100px; align-items: start;">
     <div>
-      <p style="margin: 0 0 8px 0; font-family: 'Qwitcher Grypen', cursive; font-weight: 700; font-size: 60px; color: #e63025;">Booking</p>
+      <p id="booking-script" style="margin: 0 0 8px 0; font-family: 'Qwitcher Grypen', cursive; font-weight: 700; font-size: 60px; color: #e63025;">Booking</p>
       <p style="margin: 0 0 40px 0; font-weight: 300; font-size: 16px; line-height: 1.8; color: rgba(242,239,233,0.85);">For engagements, schedule and casting material, get in touch or follow along:</p>
       <div style="display: flex; flex-direction: column; gap: 14px; font-size: 13px; letter-spacing: 3px; text-transform: uppercase;">
         <a href="https://x.com/josegallisa" target="_blank" rel="noopener">X ↗</a>
@@ -214,10 +229,84 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;de&quot;,&quot;en&quot;,&quot;pt&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Idioma inicial da bio&quot;}}">
 class Component extends DCLogic {
-  state = { lang: null, sent: false };
+  state = { lang: null, sent: false, lightbox: null };
+
+  photos = [
+    ['commendatore-dongiovanni.jpg', 'Commendatore — Don Giovanni'],
+    ['sarastro.jpg', 'Sarastro — Die Zauberflöte'],
+    ['oroveso-norma.jpg', 'Oroveso — Norma'],
+    ['mefistofele.jpg', 'Mefistofele — Mefistofele (Boito)'],
+    ['banquo-macbeth.jpg', 'Banquo — Macbeth'],
+    ['basilio-barbiere.jpg', 'Don Basilio — Il Barbiere di Siviglia'],
+    ['fiesco-boccanegra.jpg', 'Fiesco — Simon Boccanegra'],
+    ['pharao-aida.jpg', 'Pharao — Aida'],
+    ['maometto-1.jpg', 'Maometto II — Maometto II'],
+    ['gremin-onegin.jpg', 'Gremin — Eugene Onegin'],
+    ['raimondo-lucia.jpg', 'Raimondo — Lucia di Lammermoor'],
+    ['alfonso-cosi.jpg', 'Don Alfonso — Così fan tutte'],
+    ['geronte-manon.jpg', 'Geronte — Manon Lescaut'],
+    ['nourabad-pearlfishers.jpg', 'Nourabad — Les Pêcheurs de Perles'],
+    ['oldhebrew-samson.jpg', 'Old Hebrew — Samson et Dalila'],
+    ['alidoro-cenerentola.jpg', 'Alidoro — La Cenerentola'],
+    ['tosca.jpg', 'Tosca'],
+    ['wesener-soldaten.jpg', 'Wesener — Die Soldaten'],
+    ['clodomiro-lotario.jpg', 'Clodomiro — Lotario'],
+    ['antonio-guarany.jpg', 'Don Antonio — Il Guarany'],
+    ['almazor-condor.jpg', 'Almazor — Condor'],
+    ['jeanbiassu-bugjargal.jpg', 'Jean Biassu — Bug Jargal'],
+    ['sarastro-1.jpg', 'Sarastro — Die Zauberflöte'],
+    ['pharao-aida-2.jpg', 'Pharao — Aida'],
+    ['maometto-2.jpg', 'Maometto II — Maometto II'],
+    ['nourabad-pearlfishers-2.jpg', 'Nourabad — Les Pêcheurs de Perles'],
+    ['banquo-macbeth-2.jpg', 'Banquo — Macbeth'],
+    ['hally-ca-ira.jpg', 'Hally — L\'Italiana in Algeri'],
+    ['manon-lescaut.jpg', 'Geronte — Manon Lescaut'],
+    ['maometto-bremen2.jpg', 'Maometto II — Theater Bremen'],
+    ['alfonso-cosi-probe.jpg', 'Don Alfonso — Così fan tutte (rehearsal)'],
+    ['pharao-aida-3.jpg', 'Pharao — Aida'],
+    ['sarastro-3.jpg', 'Sarastro — Die Zauberflöte']
+  ];
+
+  componentDidMount() {
+    this._onKey = (e) => {
+      if (this.state.lightbox == null) return;
+      if (e.key === 'Escape') this.setState({ lightbox: null });
+      if (e.key === 'ArrowLeft') this.step(-1);
+      if (e.key === 'ArrowRight') this.step(1);
+    };
+    window.addEventListener('keydown', this._onKey);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this._onKey); }
+  step(d) {
+    const n = this.photos.length;
+    this.setState(s => ({ lightbox: (s.lightbox + d + n) % n }));
+  }
 
   renderVals() {
     const lang = this.state.lang ?? this.props.lang ?? 'en';
+    const lb = this.state.lightbox;
+    const current = lb != null ? this.photos[lb] : null;
+    const galleryVals = {
+      photos: this.photos.map((p, i) => ({
+        src: 'assets/gallery/' + p[0],
+        cap: p[1],
+        open: () => this.setState({ lightbox: i })
+      })),
+      lightboxOpen: lb != null,
+      lightboxImg: current ? React.createElement('img', {
+        src: 'assets/gallery/' + current[0],
+        alt: current[1],
+        onClick: (e) => e.stopPropagation(),
+        style: { maxWidth: '100%', maxHeight: 'calc(100vh - 160px)', display: 'block', boxShadow: '0 12px 60px rgba(0,0,0,0.8)' }
+      }) : null,
+      currentSrc: current ? 'assets/gallery/' + current[0] : '',
+      currentCap: current ? current[1] : '',
+      currentPos: current ? (lb + 1) + ' / ' + this.photos.length : '',
+      closeLightbox: () => this.setState({ lightbox: null }),
+      prevPhoto: (e) => { e.stopPropagation(); this.step(-1); },
+      nextPhoto: (e) => { e.stopPropagation(); this.step(1); },
+      stopClick: (e) => e.stopPropagation()
+    };
     const base = {
       background: 'transparent',
       border: '1px solid rgba(255,255,255,0.25)',
@@ -234,7 +323,7 @@ class Component extends DCLogic {
       color: '#ffffff',
       background: 'rgba(230,48,37,0.12)'
     });
-    return {
+    return Object.assign(galleryVals, {
       isDe: lang === 'de',
       isEn: lang === 'en',
       isPt: lang === 'pt',
@@ -246,7 +335,7 @@ class Component extends DCLogic {
       tabPtStyle: lang === 'pt' ? active : base,
       sent: this.state.sent,
       onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); }
-    };
+    });
   }
 }
 </script>
